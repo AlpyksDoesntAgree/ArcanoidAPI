@@ -7,7 +7,7 @@ namespace TestApi3K.Model
         [Key]
         public int id_User { get; set; }
         public string Name { get; set; }
-        public int Coins { get; set; }
+        public int Coins { get; set; } = 0;
         public string Login { get; set; }
         public string Password { get; set; }
     }
