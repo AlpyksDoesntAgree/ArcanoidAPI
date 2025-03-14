@@ -44,5 +44,32 @@ namespace TestApi3K.Service
                 status = true
             });
         }
+
+        public async Task<IActionResult> GetUserCoinsAsync(int userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            return new OkObjectResult(new { coins = user.Coins });
+        }
+
+        public async Task<IActionResult> AddCoinsAsync(int userId, int amount)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            user.Coins += amount;
+            await _context.SaveChangesAsync();
+
+            return new OkObjectResult(new { coins = user.Coins });
+        }
+
+        public async Task<IActionResult> SpendCoinsAsync(int userId, int amount)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            user.Coins -= amount;
+            await _context.SaveChangesAsync();
+
+            return new OkObjectResult(new { coins = user.Coins });
+        }
     }
 }

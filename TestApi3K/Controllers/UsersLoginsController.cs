@@ -28,5 +28,23 @@ namespace TestApi3K.Controllers
         {
             return await _userLoginService.CreateNewUserAsync(newUser);
         }
+
+        [HttpGet("{id}/coins")]
+        public async Task<IActionResult> GetUserCoins(int id)
+        {
+            return await _userLoginService.GetUserCoinsAsync(id);
+        }
+
+        [HttpPost("{id}/add-coins")]
+        public async Task<IActionResult> AddCoins(int id, [FromBody] int amount)
+        {
+            return await _userLoginService.AddCoinsAsync(id, amount);
+        }
+
+        [HttpPost("{id}/spend-coins")]
+        public async Task<IActionResult> SpendCoins(int id, [FromBody] int amount)
+        {
+            return await _userLoginService.SpendCoinsAsync(id, amount);
+        }
     }
 }
