@@ -5,7 +5,7 @@ namespace TestApi3K.Interfaces
 {
     public interface IUsersLoginsService
     {
-        Task<IActionResult> GetAllUsersAsync();
+        Task<IActionResult> GetUserByLoginAndPasswordAsync(string login, string password);
         Task<IActionResult> CreateNewUserAsync(CreateNewUser newUser);
 
         Task<IActionResult> GetUserCoinsAsync(int userId);

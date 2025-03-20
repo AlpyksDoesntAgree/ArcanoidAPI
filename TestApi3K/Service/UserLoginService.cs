@@ -16,14 +16,29 @@ namespace TestApi3K.Service
             _context = context;
         }
 
-        public async Task<IActionResult> GetAllUsersAsync()
+        public async Task<IActionResult> GetUserByLoginAndPasswordAsync(string login, string password)
         {
-            var users = await _context.Users.ToListAsync();
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Login == login && u.Password == password);
+
+            if (user == null)
+            {
+                return new NotFoundObjectResult(new
+                {
+                    status = false,
+                    message = "Пользователь не найден"
+                });
+            }
 
             return new OkObjectResult(new
             {
-                data = new { users = users },
-                status = true
+                status = true,
+                data = new
+                {
+                    id = user.id_User,
+                    name = user.Name,
+                    coins = user.Coins
+                }
             });
         }
 

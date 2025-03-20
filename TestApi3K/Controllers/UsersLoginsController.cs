@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 using TestApi3K.Interfaces;
 using TestApi3K.Requests;
 
@@ -15,11 +16,11 @@ namespace TestApi3K.Controllers
             _userLoginService = userLoginService;
         }
 
-        [HttpGet]
-        [Route("getAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        [HttpPost]
+        [Route("getUser")]
+        public async Task<IActionResult> GetUserByLoginAndPassword([FromBody] LoginReq request)
         {
-            return await _userLoginService.GetAllUsersAsync();
+            return await _userLoginService.GetUserByLoginAndPasswordAsync(request.Login, request.Password);
         }
 
         [HttpPost]
