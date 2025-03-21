@@ -11,5 +11,8 @@ namespace TestApi3K.Interfaces
         Task<IActionResult> GetUserCoinsAsync(int userId);
         Task<IActionResult> AddCoinsAsync(int userId, int amount);
         Task<IActionResult> SpendCoinsAsync(int userId, int amount);
+
+        Task<IActionResult> CheckIfUserHasSkinAsync(int userId, int skinId);
+        Task<IActionResult> BuySkinAsync(int userId, int skinId);
     }
 }

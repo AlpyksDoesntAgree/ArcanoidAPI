@@ -47,5 +47,17 @@ namespace TestApi3K.Controllers
         {
             return await _userLoginService.SpendCoinsAsync(id, amount);
         }
+
+        [HttpGet("{userId}/has-skin/{skinId}")]
+        public async Task<IActionResult> CheckIfUserHasSkin(int userId, int skinId)
+        {
+            return await _userLoginService.CheckIfUserHasSkinAsync(userId, skinId);
+        }
+
+        [HttpPost("{userId}/buy-skin/{skinId}")]
+        public async Task<IActionResult> BuySkin(int userId, int skinId)
+        {
+            return await _userLoginService.BuySkinAsync(userId, skinId);
+        }
     }
 }

@@ -86,5 +86,26 @@ namespace TestApi3K.Service
 
             return new OkObjectResult(new { coins = user.Coins });
         }
+
+        public async Task<IActionResult> CheckIfUserHasSkinAsync(int userId, int skinId)
+        {
+            bool hasSkin = await _context.Skins_Users
+                .AnyAsync(su => su.id_User == userId && su.id_Skin == skinId);
+
+            return new OkObjectResult(new { status = true, hasSkin });
+        }
+
+        public async Task<IActionResult> BuySkinAsync(int userId, int skinId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                return new NotFoundObjectResult(new { status = false, message = "Пользователь не найден" });
+
+            var newSkinUser = new Skins_Users { id_User = userId, id_Skin = skinId };
+            await _context.Skins_Users.AddAsync(newSkinUser);
+            await _context.SaveChangesAsync();
+
+            return new OkObjectResult(new { status = true, message = "Скин куплен!" });
+        }
     }
 }
